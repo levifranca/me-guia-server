@@ -63,13 +63,60 @@ function setupExpectations() {
 				}
 			})
 		},
-        'times': {
-            'unlimited': true
-        }
+		'times': {
+			'unlimited': true
+		}
+	};
+
+	var expectation2 = {
+		'httpRequest': {
+			'method': 'GET',
+			'path': '/beacon_info',
+			'queryStringParameters': [
+				{
+				'name': 'mac_address',
+				'values': [ '30:3A:64:E6:87:4A' ]
+				}
+			]
+		},
+		'httpResponse': {
+			'statusCode': 200,
+			'headers': [
+				{
+					'name': 'Content-Type',
+					'values': ['application/json; charset=utf-8']
+				}
+			],
+			'body': JSON.stringify({
+				sucesso:
+				{
+					beacons: [
+						{
+						id: 2,
+						nome: 'Beacon Test',
+						endereco_mac: '30:3A:64:E6:87:4A',
+						descricao: 'Esse é um beacon de test mockado 2.',
+						tags: ['tag3'],
+						mensagem: 'Indentifiquei outro beacon!',
+						audio: 'http://localhost:1080/caminho/para/o/audio2.mp3',
+						vibrar: false,
+						regiao: 10,
+						ativo: true
+						}
+					]
+				}
+			})
+		},
+		'times': {
+			'unlimited': true
+		}
 	};
 
 	mockServerClient("localhost", 1080).mockAnyResponse(expectation1);
 	mockServerClient("192.168.25.23", 1080).mockAnyResponse(expectation1);
+
+	mockServerClient("localhost", 1080).mockAnyResponse(expectation2);
+	mockServerClient("192.168.25.23", 1080).mockAnyResponse(expectation2);
 }
 
 

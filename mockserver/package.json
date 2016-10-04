@@ -1,0 +1,17 @@
+{
+  "name": "me-guia-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://levifranca@bitbucket.org/levifranca/me-guia-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/levifranca/me-guia-server#readme"
+}
