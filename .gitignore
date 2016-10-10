@@ -1,3 +1,9 @@
 mockserver/node_modules/*
 mockserver/*.log
-
+.gradle
+*~
+.classpath
+.project
+.settings
+bin
+build

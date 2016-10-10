@@ -1,38 +1,56 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
+
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.5'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
+apply plugin: 'com.bmuschko.tomcat'
+apply plugin: 'war'
 
-jar {
-    baseName = 'gs-spring-boot'
-    version =  '0.1.0'
-}
 
 repositories {
     mavenCentral()
+    jcenter()
 }
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 dependencies {
-    // tag::jetty[]
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    // end::jetty[]
-    // tag::actuator[]
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    // end::actuator[]
-    testCompile("junit:junit")
+    def tomcatVersion = '7.0.59'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+	
+	def springVersion = '4.3.3.RELEASE'
+	compile "org.springframework:spring-context:${springVersion}"
+	compile "org.springframework:spring-core:${springVersion}"
+	compile "org.springframework:spring-beans:${springVersion}"
+	compile "org.springframework:spring-web:${springVersion}"
+	compile "org.springframework:spring-webmvc:${springVersion}"
+	
+	compile 'org.springframework.data:spring-data-jpa:1.8.0.RELEASE'
+	compile 'org.hibernate:hibernate-entitymanager:4.3.9.Final'
+	compile 'mysql:mysql-connector-java:5.1.35'
+	
+	compile 'org.slf4j:slf4j-simple:1.7.12'
+ 	compile 'org.slf4j:slf4j-log4j12:1.7.12'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.12'
+	
 }
+
+tomcat {
+    httpPort = 8080
+}
+
+war {
+	baseName = 'me-guia-server'
+	version = '1.0.0-SNAPSHOT'
+}
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
