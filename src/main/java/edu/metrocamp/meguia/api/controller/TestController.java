@@ -1,4 +1,4 @@
-package edu.levifranca.meguia.api.controller;
+package edu.metrocamp.meguia.api.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
