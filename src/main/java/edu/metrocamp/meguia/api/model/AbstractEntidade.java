@@ -3,6 +3,7 @@ package edu.metrocamp.meguia.api.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,6 +15,7 @@ import org.hibernate.annotations.Type;
 public abstract class AbstractEntidade {
 	
 	@Id
+	@GeneratedValue
 	private Integer id;
 	
 	@Column(name = "Ativo")
