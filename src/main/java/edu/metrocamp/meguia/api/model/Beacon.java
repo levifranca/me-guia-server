@@ -11,13 +11,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-
 @Entity
-@Table(name = "Beacons")
+@Table(name = "Beacon")
 public class Beacon extends AbstractEntidade {
 
-	@Column(name = "Endereco_MAC")
+	@Column(name = "Endereco_MAC",columnDefinition="char(12)")
 	private String enderecoMAC;
 
 	@Column(name = "Nome")
@@ -33,7 +31,6 @@ public class Beacon extends AbstractEntidade {
 	private String mensagemSom;
 
 	@Column(name = "Vibrar")
-	@Type(type = "numeric_boolean")
 	private Boolean vibrar;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -41,7 +38,12 @@ public class Beacon extends AbstractEntidade {
 	private Regiao regiao;
 
 	@ManyToMany
-	@JoinTable(name = "Beacon_Tag")
+	@JoinTable(name = "Beacon_Tag",
+    joinColumns=
+        @JoinColumn(name="Beacon_id", referencedColumnName="ID"),
+    inverseJoinColumns=
+        @JoinColumn(name="Tag_id", referencedColumnName="ID")
+    )
 	private List<Tag> tags;
 
 	public String getEnderecoMAC() {

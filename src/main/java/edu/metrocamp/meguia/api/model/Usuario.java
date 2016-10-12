@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "Usuario")
 public class Usuario extends AbstractEntidade {
 
 	@ManyToOne
@@ -17,7 +17,7 @@ public class Usuario extends AbstractEntidade {
 	@Column(name = "Login")
 	private String login;
 	
-	@Column(name = "Senha")
+	@Column(name = "Senha", columnDefinition = "char(64)")
 	private String senha;
 	
 	@Column(name = "Nome")
