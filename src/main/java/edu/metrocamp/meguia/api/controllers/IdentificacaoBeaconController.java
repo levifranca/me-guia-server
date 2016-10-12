@@ -1,4 +1,4 @@
-package edu.metrocamp.meguia.api.controller;
+package edu.metrocamp.meguia.api.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
