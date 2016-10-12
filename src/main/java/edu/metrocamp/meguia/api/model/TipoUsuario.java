@@ -5,8 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity
 @Table(name = "Tipo_Usuario")
+@JsonSerialize(using = TipoUsuarioSerializer.class)
 public class TipoUsuario {
 	
 	@Id
@@ -30,5 +33,5 @@ public class TipoUsuario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
 }

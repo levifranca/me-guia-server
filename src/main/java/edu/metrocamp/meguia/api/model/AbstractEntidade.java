@@ -10,11 +10,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @MappedSuperclass
 public abstract class AbstractEntidade {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@JsonIgnore
 	private Integer id;
 	
 	@Column(name = "Ativo", nullable = false)
@@ -22,16 +25,20 @@ public abstract class AbstractEntidade {
 	
 	@ManyToOne
 	@JoinColumn(name = "Criado_por")
+	@JsonIgnore
 	private Usuario criadoPor;
 	
 	@Column(name = "Criado_em")
+	@JsonIgnore
 	private Date criadoEm;
 	
 	@ManyToOne
 	@JoinColumn(name = "Modificado_por")
+	@JsonIgnore
 	private Usuario modificadoPor;
 	
 	@Column(name = "Modificado_em")
+	@JsonIgnore
 	private Date modificadoEm;
 
 	public Integer getId() {

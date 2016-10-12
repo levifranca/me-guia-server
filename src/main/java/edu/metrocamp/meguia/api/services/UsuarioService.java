@@ -11,13 +11,4 @@ import edu.metrocamp.meguia.api.repositories.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
-	public void test() {
-		List<Usuario> usuarios = usuarioRepository.findAll();
-		
-		usuarios.isEmpty();
-		
-	}
 }
