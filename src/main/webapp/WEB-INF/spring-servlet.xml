@@ -12,6 +12,6 @@
 
     <context:annotation-config />
 
-    <context:component-scan base-package="edu.levifranca.meguia.api"/>
+    <context:component-scan base-package="edu.metrocamp.meguia.api"/>
     
 </beans>
