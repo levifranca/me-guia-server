@@ -24,14 +24,14 @@ public abstract class AbstractEntidade {
 	
 	@ManyToOne
 	@JoinColumn(name = "Criado_por")
-	private Cadastrador criadoPor;
+	private Usuario criadoPor;
 	
 	@Column(name = "Criado_em")
 	private Date criadoEm;
 	
 	@ManyToOne
 	@JoinColumn(name = "Modificado_por")
-	private Cadastrador modificadoPor;
+	private Usuario modificadoPor;
 	
 	@Column(name = "Modificado_em")
 	private Date modificadoEm;
@@ -52,11 +52,11 @@ public abstract class AbstractEntidade {
 		this.ativo = ativo;
 	}
 
-	public Cadastrador getCriadoPor() {
+	public Usuario getCriadoPor() {
 		return criadoPor;
 	}
 
-	public void setCriadoPor(Cadastrador criadoPor) {
+	public void setCriadoPor(Usuario criadoPor) {
 		this.criadoPor = criadoPor;
 	}
 
@@ -76,11 +76,11 @@ public abstract class AbstractEntidade {
 		this.modificadoEm = modificadoEm;
 	}
 
-	public Cadastrador getModificadoPor() {
+	public Usuario getModificadoPor() {
 		return modificadoPor;
 	}
 
-	public void setModificadoPor(Cadastrador modificadoPor) {
+	public void setModificadoPor(Usuario modificadoPor) {
 		this.modificadoPor = modificadoPor;
 	}
 

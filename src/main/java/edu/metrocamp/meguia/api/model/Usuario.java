@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Usuarios")
-public class Cadastrador extends AbstractEntidade {
+public class Usuario extends AbstractEntidade {
 
 	@ManyToOne
 	@JoinColumn(name = "Tipo")
