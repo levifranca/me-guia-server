@@ -1,10 +1,26 @@
 package edu.metrocamp.meguia.api.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Usuarios")
 public class Cadastrador extends AbstractEntidade {
 
+	@ManyToOne
+	@JoinColumn(name = "Tipo")
 	private TipoUsuario tipo;
+	
+	@Column(name = "Login")
 	private String login;
+	
+	@Column(name = "Senha")
 	private String senha;
+	
+	@Column(name = "Nome")
 	private String nome;
 
 	public String getLogin() {

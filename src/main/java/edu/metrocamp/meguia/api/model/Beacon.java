@@ -2,15 +2,46 @@ package edu.metrocamp.meguia.api.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+
+@Entity
+@Table(name = "Beacons")
 public class Beacon extends AbstractEntidade {
 
+	@Column(name = "Endereco_MAC")
 	private String enderecoMAC;
+
+	@Column(name = "Nome")
 	private String nome;
+	
+	@Column(name = "Descricao")
 	private String descricao;
+
+	@Column(name = "Mensagem")
 	private String mensagemTexto;
+
+	@Column(name = "Mensagem_sonora")
 	private String mensagemSom;
+
+	@Column(name = "Vibrar")
+	@Type(type = "numeric_boolean")
 	private Boolean vibrar;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Regiao")
 	private Regiao regiao;
+
+	@ManyToMany
+	@JoinTable(name = "Beacon_Tag")
 	private List<Tag> tags;
 
 	public String getEnderecoMAC() {

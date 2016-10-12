@@ -2,12 +2,36 @@ package edu.metrocamp.meguia.api.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.Type;
+
+@MappedSuperclass
 public abstract class AbstractEntidade {
+	
+	@Id
 	private Integer id;
+	
+	@Column(name = "Ativo")
+	@Type(type = "numeric_boolean")
 	private Boolean ativo;
+	
+	@ManyToOne
+	@JoinColumn(name = "Criado_por")
 	private Cadastrador criadoPor;
+	
+	@Column(name = "Criado_em")
 	private Date criadoEm;
+	
+	@ManyToOne
+	@JoinColumn(name = "Modificado_por")
 	private Cadastrador modificadoPor;
+	
+	@Column(name = "Modificado_em")
 	private Date modificadoEm;
 
 	public Integer getId() {

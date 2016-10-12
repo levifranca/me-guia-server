@@ -1,7 +1,18 @@
 package edu.metrocamp.meguia.api.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Tipo_Usuario")
 public class TipoUsuario {
+	
+	@Id
 	private Integer id;
+	
+	@Column(name = "Nome")
 	private String nome;
 
 	public Integer getId() {

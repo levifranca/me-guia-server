@@ -1,8 +1,17 @@
 package edu.metrocamp.meguia.api.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Regiao")
 public class Regiao extends AbstractEntidade {
 
+	@Column(name = "Nome")
 	private String nome;
+	
+	@Column(name = "Descricao")
 	private String descricao;
 
 	public String getDescricao() {

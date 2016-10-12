@@ -1,10 +1,32 @@
 package edu.metrocamp.meguia.api.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Registro_Identificacao")
 public class RegistroIdentificacao {
+	
+	@Id
 	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name = "ID_Beacon")
 	private Beacon beacon;
+	
+	@Column(name = "Timestamp_Millis")
 	private Long timestampMillis;
+	
+	@ManyToOne
+	@JoinColumn(name = "ID_Estatisticas_SUM_Dia")
 	private EstatisticaDia estatisticaDia;
+	
+	@ManyToOne
+	@JoinColumn(name = "ID_Estatisticas_SUM_Hora")
 	private EstatisticaHora estatisticaHora;
 
 	public Integer getId() {
