@@ -11,11 +11,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "Beacon")
 public class Beacon extends AbstractEntidade {
 
-	@Column(name = "Endereco_MAC",columnDefinition="char(12)")
+	@Column(name = "Endereco_MAC",columnDefinition="char(17)")
+	@JsonProperty("endereco_mac")
 	private String enderecoMAC;
 
 	@Column(name = "Nome")
@@ -25,9 +28,11 @@ public class Beacon extends AbstractEntidade {
 	private String descricao;
 
 	@Column(name = "Mensagem")
+	@JsonProperty("mensagem")
 	private String mensagemTexto;
 
 	@Column(name = "Mensagem_sonora")
+	@JsonProperty("audio")
 	private String mensagemSom;
 
 	@Column(name = "Vibrar")
@@ -37,7 +42,7 @@ public class Beacon extends AbstractEntidade {
 	@JoinColumn(name = "Regiao")
 	private Regiao regiao;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "Beacon_Tag",
     joinColumns=
         @JoinColumn(name="Beacon_id", referencedColumnName="ID"),

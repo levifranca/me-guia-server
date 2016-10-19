@@ -50,7 +50,7 @@ function setupExpectations() {
 						{
 						id: 1,
 						nome: 'Beacon Test',
-						endereco_mac: 'A1:B2:C3:D4:E5:F6',
+						endereco_mac: '20:91:48:07:1D:D9',
 						descricao: 'Esse é um beacon de test mockado.',
 						tags: ['tag1', 'tag2', 'tag3'],
 						mensagem: 'Cozinha',

@@ -7,9 +7,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Usuario")
+@JsonIgnoreProperties("id")
 public class Usuario extends AbstractEntidade {
 
 	@ManyToOne

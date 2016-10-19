@@ -17,7 +17,6 @@ public abstract class AbstractEntidade {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@JsonIgnore
 	private Integer id;
 	
 	@Column(name = "Ativo", nullable = false)
