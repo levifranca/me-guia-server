@@ -16,7 +16,7 @@ public class Usuario extends AbstractEntidade {
 	@JoinColumn(name = "Tipo")
 	private TipoUsuario tipo;
 	
-	@Column(name = "Login")
+	@Column(unique = true, name = "Login")
 	private String login;
 	
 	@Column(name = "Senha", columnDefinition = "char(64)")
@@ -25,7 +25,7 @@ public class Usuario extends AbstractEntidade {
 	
 	@Column(name = "Nome")
 	private String nome;
-
+	
 	public String getLogin() {
 		return login;
 	}
