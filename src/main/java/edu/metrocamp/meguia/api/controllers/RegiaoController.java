@@ -6,41 +6,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.metrocamp.meguia.api.dtos.PostNewCadastradorRequestDTO;
-import edu.metrocamp.meguia.api.dtos.PostUpdateCadastradorRequestDTO;
 import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
-import edu.metrocamp.meguia.api.model.Usuario;
-import edu.metrocamp.meguia.api.services.UsuarioService;
+import edu.metrocamp.meguia.api.model.Regiao;
+import edu.metrocamp.meguia.api.services.RegiaoService;
 
 @RestController
 @RequestMapping("/api/")
-public class CadastroEntidadeController {
+public class RegiaoController {
 
 	@Autowired
-	private UsuarioService usuarioService;
+	private RegiaoService regiaoService;
 
-	/** Usuarios **/
+	@RequestMapping(path = "/regioes", method = RequestMethod.GET)
+	public @ResponseBody List<Regiao> getCadastradores(HttpServletResponse resp) throws AbstractMeGuiaException {
 
-	@RequestMapping(path = "/cadastradores", method = RequestMethod.GET)
-	public @ResponseBody List<Usuario> getCadastradores(HttpServletResponse resp) throws AbstractMeGuiaException {
+		List<Regiao> rs = regiaoService.findAllRegioes();
 
-		List<Usuario> us = usuarioService.findAllUsuarios();
-
-		if (us == null) {
+		if (rs == null) {
 			resp.setStatus(HttpStatus.NOT_FOUND.value());
 		}
 
-		return us;
+		return rs;
 	}
-
-	@RequestMapping(path = "/cadastrador/{login}", method = RequestMethod.GET)
+	
+	/*
+	@RequestMapping(path = "/regiao/{id}", method = RequestMethod.GET)
 	public @ResponseBody Usuario getCadastrador(HttpServletResponse resp, @PathVariable String login)
 			throws AbstractMeGuiaException {
 		Usuario u = usuarioService.findUsuario(login);
@@ -51,7 +46,7 @@ public class CadastroEntidadeController {
 		return u;
 	}
 
-	@RequestMapping(path = "/cadastrador", method = RequestMethod.POST)
+	@RequestMapping(path = "/regiao", method = RequestMethod.POST)
 	public String postNewCadastrador(HttpServletResponse resp, @RequestBody PostNewCadastradorRequestDTO reqDTO)
 			throws AbstractMeGuiaException {
 
@@ -61,7 +56,7 @@ public class CadastroEntidadeController {
 		return HttpStatus.CREATED.getReasonPhrase();
 	}
 
-	@RequestMapping(path = "/cadastrador/{login}", method = RequestMethod.POST)
+	@RequestMapping(path = "/regiao/{id}", method = RequestMethod.POST)
 	public String postUpdateCadastrador(HttpServletResponse resp, @PathVariable String login,
 			@RequestBody PostUpdateCadastradorRequestDTO reqDTO) throws AbstractMeGuiaException {
 
@@ -70,4 +65,6 @@ public class CadastroEntidadeController {
 		resp.setStatus(HttpStatus.OK.value());
 		return HttpStatus.OK.getReasonPhrase();
 	}
+	
+	*/
 }
