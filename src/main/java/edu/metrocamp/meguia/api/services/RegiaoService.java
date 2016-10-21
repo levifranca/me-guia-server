@@ -27,4 +27,16 @@ public class RegiaoService {
 		return regioes;
 	}
 
+	public Regiao findRegiao(Integer id) throws AbstractMeGuiaException {
+		
+		Regiao r = repository.findOne(id);
+
+		if (r == null) {
+			throw new RegiaoNaoEncontradaException(
+					String.format("A região de id %s não foi encontrado no sistema!", id));
+		}
+
+		return r;
+	}
+
 }

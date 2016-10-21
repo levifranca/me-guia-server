@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,19 +34,20 @@ public class RegiaoController {
 
 		return rs;
 	}
-	
-	/*
-	@RequestMapping(path = "/regiao/{id}", method = RequestMethod.GET)
-	public @ResponseBody Usuario getCadastrador(HttpServletResponse resp, @PathVariable String login)
-			throws AbstractMeGuiaException {
-		Usuario u = usuarioService.findUsuario(login);
 
-		if (u == null) {
+	@RequestMapping(path = "/regiao/{id}", method = RequestMethod.GET)
+	public @ResponseBody Regiao getCadastrador(HttpServletResponse resp, @PathVariable Integer id)
+			throws AbstractMeGuiaException {
+		
+		Regiao r = regiaoService.findRegiao(id);
+
+		if (r == null) {
 			resp.setStatus(HttpStatus.NOT_FOUND.value());
 		}
-		return u;
+		return r;
 	}
 
+	/*
 	@RequestMapping(path = "/regiao", method = RequestMethod.POST)
 	public String postNewCadastrador(HttpServletResponse resp, @RequestBody PostNewCadastradorRequestDTO reqDTO)
 			throws AbstractMeGuiaException {
