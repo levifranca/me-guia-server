@@ -2,7 +2,7 @@ package edu.metrocamp.meguia.api.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PostCadastradorRequestDTO {
+public class PostNewCadastradorRequestDTO {
 	private String nome;
 	private String login;
 	private Integer tipo;
