@@ -13,13 +13,20 @@ public class BeaconService {
 	
 	@Autowired
 	private BeaconRepository repository;
-
+	
+	@Autowired
+	private EstatisticaService estatisticaService;
+	
 	public List<Beacon> getBeaconInfo(Integer regiao, String macAddress) {
 		
 		List<Beacon> beacons = repository.findByRegiaoAndOrMacAddress(regiao, macAddress);
 		
 		if (beacons == null || beacons.isEmpty()) {
 			return null;
+		}
+		
+		for (Beacon beacon : beacons) {
+			estatisticaService.adicionaRegistroDeIdentificacao(beacon);
 		}
 		
 		return beacons;
