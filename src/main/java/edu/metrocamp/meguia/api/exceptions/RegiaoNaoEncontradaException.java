@@ -10,7 +10,7 @@ public class RegiaoNaoEncontradaException extends AbstractMeGuiaException {
 	public final static HttpStatus HTTP_STATUS = HttpStatus.NOT_FOUND;
 	
 	public RegiaoNaoEncontradaException(String mensagem) {
-		super(CODIGO, mensagem);
+		super(CodigosExceptionsConstantes.REGIAO_NAO_ENCONTRADA, mensagem);
 	}
 	
 	public HttpStatus getHttpStatus() {

@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.metrocamp.meguia.api.dtos.PostNewRegiaoRequestDTO;
 import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
 import edu.metrocamp.meguia.api.model.Regiao;
 import edu.metrocamp.meguia.api.services.RegiaoService;
@@ -47,17 +49,17 @@ public class RegiaoController {
 		return r;
 	}
 
-	/*
 	@RequestMapping(path = "/regiao", method = RequestMethod.POST)
-	public String postNewCadastrador(HttpServletResponse resp, @RequestBody PostNewCadastradorRequestDTO reqDTO)
+	public String postNewRegiao(HttpServletResponse resp, @RequestBody PostNewRegiaoRequestDTO reqDTO)
 			throws AbstractMeGuiaException {
-
-		usuarioService.createUsuario(reqDTO);
+		
+		regiaoService.createRegiao(reqDTO);
 
 		resp.setStatus(HttpStatus.CREATED.value());
 		return HttpStatus.CREATED.getReasonPhrase();
 	}
 
+	/*
 	@RequestMapping(path = "/regiao/{id}", method = RequestMethod.POST)
 	public String postUpdateCadastrador(HttpServletResponse resp, @PathVariable String login,
 			@RequestBody PostUpdateCadastradorRequestDTO reqDTO) throws AbstractMeGuiaException {

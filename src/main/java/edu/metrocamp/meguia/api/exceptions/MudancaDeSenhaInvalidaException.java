@@ -6,11 +6,10 @@ public class MudancaDeSenhaInvalidaException extends AbstractMeGuiaException {
 
 private static final long serialVersionUID = -7220184514128087019L;
 	
-	public final static Integer CODIGO = 5;
 	public final static HttpStatus HTTP_STATUS = HttpStatus.BAD_REQUEST;
 	
 	public MudancaDeSenhaInvalidaException(String mensagem) {
-		super(CODIGO, mensagem);
+		super(CodigosExceptionsConstantes.MUDANCA_DE_SENHA_INVALIDA, mensagem);
 	}
 	
 	@Override

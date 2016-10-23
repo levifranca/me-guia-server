@@ -6,11 +6,10 @@ public class UsuarioNaoEncontradoException extends AbstractMeGuiaException {
 
 	private static final long serialVersionUID = -7220184514128087019L;
 	
-	public final static Integer CODIGO = 2;
 	public final static HttpStatus HTTP_STATUS = HttpStatus.NOT_FOUND;
 	
 	public UsuarioNaoEncontradoException(String mensagem) {
-		super(CODIGO, mensagem);
+		super(CodigosExceptionsConstantes.USUARIO_NAO_ENCONTRADO, mensagem);
 	}
 	
 	public HttpStatus getHttpStatus() {
