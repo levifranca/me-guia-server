@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.metrocamp.meguia.api.dtos.PostNewRegiaoRequestDTO;
+import edu.metrocamp.meguia.api.dtos.PostUpdateRegiaoRequestDTO;
 import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
 import edu.metrocamp.meguia.api.model.Regiao;
 import edu.metrocamp.meguia.api.services.RegiaoService;
@@ -59,16 +60,14 @@ public class RegiaoController {
 		return HttpStatus.CREATED.getReasonPhrase();
 	}
 
-	/*
 	@RequestMapping(path = "/regiao/{id}", method = RequestMethod.POST)
-	public String postUpdateCadastrador(HttpServletResponse resp, @PathVariable String login,
-			@RequestBody PostUpdateCadastradorRequestDTO reqDTO) throws AbstractMeGuiaException {
+	public String postUpdateCadastrador(HttpServletResponse resp, @PathVariable Integer id,
+			@RequestBody PostUpdateRegiaoRequestDTO reqDTO) throws AbstractMeGuiaException {
 
-		usuarioService.updateUsuario(login, reqDTO);
+		regiaoService.updateRegiao(id, reqDTO);
 
 		resp.setStatus(HttpStatus.OK.value());
 		return HttpStatus.OK.getReasonPhrase();
 	}
 	
-	*/
 }

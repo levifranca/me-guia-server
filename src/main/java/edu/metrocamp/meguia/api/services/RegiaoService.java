@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.metrocamp.meguia.api.dtos.PostNewRegiaoRequestDTO;
+import edu.metrocamp.meguia.api.dtos.PostUpdateRegiaoRequestDTO;
 import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
 import edu.metrocamp.meguia.api.exceptions.DadosDeRegiaoIncompletosException;
 import edu.metrocamp.meguia.api.exceptions.RegiaoNaoEncontradaException;
@@ -70,6 +71,39 @@ public class RegiaoService {
 		r.setModificadoEm(now);
 		r.setModificadoPor(criador);
 		r.setNome(reqDTO.getNome());
+		
+		repository.saveAndFlush(r);
+	}
+
+	public void updateRegiao(Integer id, PostUpdateRegiaoRequestDTO reqDTO) throws AbstractMeGuiaException {
+		Regiao r = repository.findOne(id);
+		if (r == null) {
+			throw new RegiaoNaoEncontradaException(String.format("Não foi encontrada uma regiao com id = %s", id));
+		}
+		
+		if(StringUtils.isBlank(reqDTO.getLoginModificador())) {
+			throw new DadosDeRegiaoIncompletosException("O campo login_modificador não foi enviado!");
+		}
+		Usuario modificador = usuarioService.findUsuario(reqDTO.getLoginModificador());
+		if(modificador != null && !modificador.getAtivo()) {
+			throw new UsuarioInativoException("O modificador está inativo.");
+		}
+		
+		Date now = new Date();
+		r.setModificadoEm(now);
+		r.setModificadoPor(modificador);
+		
+		if(StringUtils.isNotBlank(reqDTO.getNome())) {
+			r.setNome(reqDTO.getNome());
+		}
+		
+		if(StringUtils.isNotBlank(reqDTO.getDescricao())) {
+			r.setDescricao(reqDTO.getDescricao());
+		}
+		
+		if(reqDTO.getAtivo() != null) {
+			r.setAtivo(reqDTO.getAtivo());
+		}
 		
 		repository.saveAndFlush(r);
 	}
