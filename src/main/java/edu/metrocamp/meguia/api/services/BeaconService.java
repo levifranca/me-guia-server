@@ -26,9 +26,6 @@ public class BeaconService {
 	private BeaconRepository repository;
 
 	@Autowired
-	private EstatisticaService estatisticaService;
-
-	@Autowired
 	private UsuarioService usuarioService;
 
 	@Autowired
@@ -40,10 +37,6 @@ public class BeaconService {
 
 		if (beacons == null || beacons.isEmpty()) {
 			return null;
-		}
-
-		for (Beacon beacon : beacons) {
-			estatisticaService.adicionaRegistroDeIdentificacao(beacon);
 		}
 
 		return beacons;
