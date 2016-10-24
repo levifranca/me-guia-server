@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.metrocamp.meguia.api.dtos.PostNewBeaconRequestDTO;
+import edu.metrocamp.meguia.api.dtos.PostUpdateBeaconRequestDTO;
 import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
 import edu.metrocamp.meguia.api.model.Beacon;
 import edu.metrocamp.meguia.api.services.BeaconService;
@@ -58,15 +59,13 @@ public class BeaconController {
 		return HttpStatus.CREATED.getReasonPhrase();
 	}
 
-	/*
-	@RequestMapping(path = "/cadastrador/{login}", method = RequestMethod.POST)
-	public String postUpdateCadastrador(HttpServletResponse resp, @PathVariable String login,
-			@RequestBody PostUpdateCadastradorRequestDTO reqDTO) throws AbstractMeGuiaException {
+	@RequestMapping(path = "/beacon/{id}", method = RequestMethod.POST)
+	public String postUpdateCadastrador(HttpServletResponse resp, @PathVariable Integer id,
+			@RequestBody PostUpdateBeaconRequestDTO reqDTO) throws AbstractMeGuiaException {
 
-		usuarioService.updateUsuario(login, reqDTO);
+		beaconService.updateBeacon(id, reqDTO);
 
 		resp.setStatus(HttpStatus.OK.value());
 		return HttpStatus.OK.getReasonPhrase();
 	}
-	*/
 }

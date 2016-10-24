@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.metrocamp.meguia.api.dtos.PostNewBeaconRequestDTO;
+import edu.metrocamp.meguia.api.dtos.PostUpdateBeaconRequestDTO;
 import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
 import edu.metrocamp.meguia.api.exceptions.BeaconJaExisteException;
 import edu.metrocamp.meguia.api.exceptions.BeaconNaoEncontradoException;
@@ -26,10 +27,10 @@ public class BeaconService {
 
 	@Autowired
 	private EstatisticaService estatisticaService;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private RegiaoService regiaoService;
 
@@ -78,17 +79,19 @@ public class BeaconService {
 		}
 
 		if (existsBeaconWithMacAddress(reqDTO.getEnderecoMac())) {
-			throw new BeaconJaExisteException(String.format("Já existe um beacon cadastrado com o Endereço MAC: %s", reqDTO.getEnderecoMac()));
+			throw new BeaconJaExisteException(
+					String.format("Já existe um beacon cadastrado com o Endereço MAC: %s", reqDTO.getEnderecoMac()));
 		}
-		
+
 		Usuario cadastrador = usuarioService.findUsuario(reqDTO.getLoginCriador());
 		if (!cadastrador.getAtivo()) {
-			throw new UsuarioInativoException(String.format("O cadastrador com o login %s não está ativo.", reqDTO.getLoginCriador()));
+			throw new UsuarioInativoException(
+					String.format("O cadastrador com o login %s não está ativo.", reqDTO.getLoginCriador()));
 		}
-		
+
 		Regiao r = regiaoService.findRegiao(reqDTO.getRegiaoId());
 		Date now = new Date();
-		
+
 		Beacon b = new Beacon();
 		b.setAtivo(true);
 		b.setCriadoEm(now);
@@ -101,14 +104,62 @@ public class BeaconService {
 		b.setNome(reqDTO.getNome());
 		b.setRegiao(r);
 		b.setVibrar(reqDTO.getVibrar());
-		
+
 		repository.saveAndFlush(b);
-		
+
 	}
 
 	private boolean existsBeaconWithMacAddress(String enderecoMac) {
 		Beacon b = repository.findByEnderecoMAC(enderecoMac.toUpperCase());
 		return !(b == null);
+	}
+
+	public void updateBeacon(Integer id, PostUpdateBeaconRequestDTO reqDTO) throws AbstractMeGuiaException {
+
+		Beacon b = repository.findOne(id);
+		if (b == null) {
+			throw new BeaconNaoEncontradoException(String.format("Nenhum beacon com id = %d foi encontrado.", id));
+		}
+
+		if (StringUtils.isBlank(reqDTO.getLoginModificador())) {
+			throw new DadosDeBeaconIncompletosException("O campo login_modificador não foi enviado.");
+		}
+
+		Usuario modificador = usuarioService.findUsuario(reqDTO.getLoginModificador());
+		if (!modificador.getAtivo()) {
+			throw new UsuarioInativoException(
+					String.format("O cadastrador com o login %s não está ativo.", reqDTO.getLoginModificador()));
+		}
+
+
+		if (StringUtils.isNotBlank(reqDTO.getMensagem())) {
+
+		}
+
+		if (reqDTO.getVibrar() != null) {
+			b.setVibrar(reqDTO.getVibrar());
+		}
+		if (reqDTO.getAtivo() != null) {
+			b.setAtivo(reqDTO.getAtivo());
+		}
+
+		if (StringUtils.isNotBlank(reqDTO.getNome())) {
+			b.setNome(reqDTO.getNome());
+		}
+
+		if (reqDTO.getRegiaoId() != null) {
+			Regiao r = regiaoService.findRegiao(reqDTO.getRegiaoId());
+			b.setRegiao(r);
+		}
+
+		b.setMensagemTexto(reqDTO.getMensagem());
+		b.setDescricao(reqDTO.getDescricao());
+
+		Date now = new Date();
+		b.setModificadoEm(now);
+		b.setModificadoPor(modificador);
+		
+		repository.saveAndFlush(b);
 	}
 
 }
