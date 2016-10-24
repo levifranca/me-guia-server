@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
 import edu.metrocamp.meguia.api.exceptions.BeaconNaoEncontradoException;
 import edu.metrocamp.meguia.api.model.Beacon;
 import edu.metrocamp.meguia.api.repositories.BeaconRepository;
@@ -33,7 +34,7 @@ public class BeaconService {
 		return beacons;
 	}
 
-	public List<Beacon> findAllBeacons() throws BeaconNaoEncontradoException {
+	public List<Beacon> findAllBeacons() throws AbstractMeGuiaException {
 		List<Beacon> beacons = repository.findAll();
 
 		if (beacons == null || beacons.isEmpty()) {
@@ -41,6 +42,17 @@ public class BeaconService {
 		}
 
 		return beacons;
+	}
+
+	public Beacon findBeacon(Integer id) throws AbstractMeGuiaException {
+		Beacon b = repository.findOne(id);
+
+		if (b == null) {
+			throw new BeaconNaoEncontradoException(
+					String.format("O beacon com id = %s não foi encontrado no sistema!", id));
+		}
+
+		return b;
 	}
 
 }

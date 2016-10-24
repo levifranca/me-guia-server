@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,18 +35,18 @@ public class BeaconController {
 		return us;
 	}
 
-	/*
-	@RequestMapping(path = "/cadastrador/{login}", method = RequestMethod.GET)
-	public @ResponseBody Usuario getCadastrador(HttpServletResponse resp, @PathVariable String login)
+	@RequestMapping(path = "/beacon/{id}", method = RequestMethod.GET)
+	public @ResponseBody Beacon getCadastrador(HttpServletResponse resp, @PathVariable Integer id)
 			throws AbstractMeGuiaException {
-		Usuario u = usuarioService.findUsuario(login);
+		Beacon b = beaconService.findBeacon(id);
 
-		if (u == null) {
+		if (b == null) {
 			resp.setStatus(HttpStatus.NOT_FOUND.value());
 		}
-		return u;
+		return b;
 	}
 
+	/*
 	@RequestMapping(path = "/cadastrador", method = RequestMethod.POST)
 	public String postNewCadastrador(HttpServletResponse resp, @RequestBody PostNewCadastradorRequestDTO reqDTO)
 			throws AbstractMeGuiaException {
