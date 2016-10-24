@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity
 @Table(name = "Tag")
+@JsonSerialize(using = TagSerializer.class)
 public class Tag extends AbstractEntidade {
 	
 	@Column(name = "Nome")

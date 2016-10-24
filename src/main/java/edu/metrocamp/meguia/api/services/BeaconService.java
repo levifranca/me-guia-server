@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.metrocamp.meguia.api.exceptions.BeaconNaoEncontradoException;
 import edu.metrocamp.meguia.api.model.Beacon;
 import edu.metrocamp.meguia.api.repositories.BeaconRepository;
 
@@ -29,6 +30,16 @@ public class BeaconService {
 			estatisticaService.adicionaRegistroDeIdentificacao(beacon);
 		}
 		
+		return beacons;
+	}
+
+	public List<Beacon> findAllBeacons() throws BeaconNaoEncontradoException {
+		List<Beacon> beacons = repository.findAll();
+
+		if (beacons == null || beacons.isEmpty()) {
+			throw new BeaconNaoEncontradoException("Nenhum beacon encontrado no sistema!");
+		}
+
 		return beacons;
 	}
 
