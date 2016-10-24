@@ -13,5 +13,7 @@ public interface BeaconRepository extends JpaRepository<Beacon, Integer> {
 	@Query("SELECT b FROM Beacon b WHERE (b.regiao.id = :regiao OR null = :regiao) AND UPPER(b.enderecoMAC) = UPPER(:macAddress) AND b.ativo = 1")
 	List<Beacon> findByRegiaoAndOrMacAddress(@Param("regiao") Integer regiao, 
 											 @Param("macAddress") String macAddress);
+
+	Beacon findByEnderecoMAC(String enderecoMac);
 	
 }

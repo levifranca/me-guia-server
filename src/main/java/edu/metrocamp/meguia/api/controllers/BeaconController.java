@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.metrocamp.meguia.api.dtos.PostNewBeaconRequestDTO;
 import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
 import edu.metrocamp.meguia.api.model.Beacon;
 import edu.metrocamp.meguia.api.services.BeaconService;
@@ -36,7 +38,7 @@ public class BeaconController {
 	}
 
 	@RequestMapping(path = "/beacon/{id}", method = RequestMethod.GET)
-	public @ResponseBody Beacon getCadastrador(HttpServletResponse resp, @PathVariable Integer id)
+	public @ResponseBody Beacon getBeacon(HttpServletResponse resp, @PathVariable Integer id)
 			throws AbstractMeGuiaException {
 		Beacon b = beaconService.findBeacon(id);
 
@@ -46,17 +48,17 @@ public class BeaconController {
 		return b;
 	}
 
-	/*
-	@RequestMapping(path = "/cadastrador", method = RequestMethod.POST)
-	public String postNewCadastrador(HttpServletResponse resp, @RequestBody PostNewCadastradorRequestDTO reqDTO)
+	@RequestMapping(path = "/beacon", method = RequestMethod.POST)
+	public String postNewBeacon(HttpServletResponse resp, @RequestBody PostNewBeaconRequestDTO reqDTO)
 			throws AbstractMeGuiaException {
 
-		usuarioService.createUsuario(reqDTO);
+		beaconService.createBeacon(reqDTO);
 
 		resp.setStatus(HttpStatus.CREATED.value());
 		return HttpStatus.CREATED.getReasonPhrase();
 	}
 
+	/*
 	@RequestMapping(path = "/cadastrador/{login}", method = RequestMethod.POST)
 	public String postUpdateCadastrador(HttpServletResponse resp, @PathVariable String login,
 			@RequestBody PostUpdateCadastradorRequestDTO reqDTO) throws AbstractMeGuiaException {

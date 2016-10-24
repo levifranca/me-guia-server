@@ -1,13 +1,9 @@
 package edu.metrocamp.meguia.api.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -41,15 +37,6 @@ public class Beacon extends AbstractEntidade {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "Regiao")
 	private Regiao regiao;
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "Beacon_Tag",
-    joinColumns=
-        @JoinColumn(name="Beacon_id", referencedColumnName="ID"),
-    inverseJoinColumns=
-        @JoinColumn(name="Tag_id", referencedColumnName="ID")
-    )
-	private List<Tag> tags;
 
 	public String getEnderecoMAC() {
 		return enderecoMAC;
@@ -105,14 +92,6 @@ public class Beacon extends AbstractEntidade {
 
 	public void setRegiao(Regiao regiao) {
 		this.regiao = regiao;
-	}
-
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
 	}
 
 }

@@ -12,5 +12,7 @@ public class CodigosExceptionsConstantes {
 	public static final Integer DADOS_DE_REGIAO_INCOMPLETOS = 8;
 	public static final Integer USUARIO_INATIVO = 9;
 	public static final Integer BEACON_NAO_ENCONTRADO = 10;
+	public static final Integer DADOS_DE_BEACON_INCOMPLETOS = 11;
+	public static final Integer BEACON_JA_EXISTE = 12;
 	
 }
