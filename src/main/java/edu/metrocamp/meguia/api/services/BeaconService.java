@@ -1,11 +1,14 @@
 package edu.metrocamp.meguia.api.services;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.metrocamp.meguia.api.dtos.PostNewBeaconRequestDTO;
 import edu.metrocamp.meguia.api.dtos.PostUpdateBeaconRequestDTO;
@@ -153,6 +156,28 @@ public class BeaconService {
 		b.setModificadoPor(modificador);
 		
 		repository.saveAndFlush(b);
+	}
+
+	public void saveBeaconAudio(Integer id, MultipartFile multipartFile) throws AbstractMeGuiaException, IllegalStateException, IOException {
+		
+		Beacon b = findBeacon(id);
+		
+		File file = getBeaconAudioFile(id);
+		multipartFile.transferTo(file);
+		
+		b.setMensagemSom("/beacons-audio/" + id + ".mp3");
+		
+		repository.saveAndFlush(b);
+	}
+
+	private File getBeaconAudioFile(Integer id) throws IOException {
+		File folder = new File("beacons-audio");
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		File file = new File(folder, "/" + id + ".mp3");
+		file.createNewFile();
+		return file;
 	}
 
 }

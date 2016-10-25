@@ -1,5 +1,6 @@
 package edu.metrocamp.meguia.api.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.metrocamp.meguia.api.dtos.PostNewBeaconRequestDTO;
 import edu.metrocamp.meguia.api.dtos.PostUpdateBeaconRequestDTO;
@@ -60,11 +63,21 @@ public class BeaconController {
 	}
 
 	@RequestMapping(path = "/beacon/{id}", method = RequestMethod.POST)
-	public String postUpdateCadastrador(HttpServletResponse resp, @PathVariable Integer id,
+	public String postUpdateBeacon(HttpServletResponse resp, @PathVariable Integer id,
 			@RequestBody PostUpdateBeaconRequestDTO reqDTO) throws AbstractMeGuiaException {
 
 		beaconService.updateBeacon(id, reqDTO);
 
+		resp.setStatus(HttpStatus.OK.value());
+		return HttpStatus.OK.getReasonPhrase();
+	}
+
+	@RequestMapping(path = "/beacon/{id}/audio", method = RequestMethod.POST)
+	public String postBeaconAudio(HttpServletResponse resp, @PathVariable Integer id,
+			@RequestParam("file") MultipartFile file) throws AbstractMeGuiaException, IllegalStateException, IOException {
+
+		beaconService.saveBeaconAudio(id, file);
+		
 		resp.setStatus(HttpStatus.OK.value());
 		return HttpStatus.OK.getReasonPhrase();
 	}

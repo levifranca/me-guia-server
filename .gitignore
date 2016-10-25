@@ -7,3 +7,4 @@ mockserver/*.log
 .settings
 bin
 build
+beacons-audio/*
