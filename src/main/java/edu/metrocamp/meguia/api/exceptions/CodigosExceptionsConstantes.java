@@ -14,5 +14,6 @@ public class CodigosExceptionsConstantes {
 	public static final Integer BEACON_NAO_ENCONTRADO = 10;
 	public static final Integer DADOS_DE_BEACON_INCOMPLETOS = 11;
 	public static final Integer BEACON_JA_EXISTE = 12;
+	public static final Integer MENSAGEM_SONORA_NAO_ENCONTRADA = 13;
 	
 }

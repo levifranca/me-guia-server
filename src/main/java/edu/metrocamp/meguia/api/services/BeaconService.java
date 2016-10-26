@@ -16,6 +16,7 @@ import edu.metrocamp.meguia.api.exceptions.AbstractMeGuiaException;
 import edu.metrocamp.meguia.api.exceptions.BeaconJaExisteException;
 import edu.metrocamp.meguia.api.exceptions.BeaconNaoEncontradoException;
 import edu.metrocamp.meguia.api.exceptions.DadosDeBeaconIncompletosException;
+import edu.metrocamp.meguia.api.exceptions.MensagemSonoraNaoEncontradaException;
 import edu.metrocamp.meguia.api.exceptions.UsuarioInativoException;
 import edu.metrocamp.meguia.api.model.Beacon;
 import edu.metrocamp.meguia.api.model.Regiao;
@@ -178,6 +179,17 @@ public class BeaconService {
 		File file = new File(folder, "/" + id + ".mp3");
 		file.createNewFile();
 		return file;
+	}
+
+	public File findBeaconAudio(Integer id) throws AbstractMeGuiaException {
+		Beacon b = findBeacon(id);
+		
+		if (StringUtils.isBlank(b.getMensagemSom())) {
+			throw new MensagemSonoraNaoEncontradaException(String.format("Mensagem sonora para o beacon de id = %d não foi encontrada.", id));
+		}
+		
+		String fileRelativePath = StringUtils.removeStart(b.getMensagemSom(), "/");
+		return new File(fileRelativePath);
 	}
 
 }

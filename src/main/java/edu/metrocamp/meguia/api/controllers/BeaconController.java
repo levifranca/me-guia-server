@@ -1,12 +1,17 @@
 package edu.metrocamp.meguia.api.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,11 +79,35 @@ public class BeaconController {
 
 	@RequestMapping(path = "/beacon/{id}/audio", method = RequestMethod.POST)
 	public String postBeaconAudio(HttpServletResponse resp, @PathVariable Integer id,
-			@RequestParam("file") MultipartFile file) throws AbstractMeGuiaException, IllegalStateException, IOException {
+			@RequestParam("file") MultipartFile file)
+			throws AbstractMeGuiaException, IllegalStateException, IOException {
 
 		beaconService.saveBeaconAudio(id, file);
-		
+
 		resp.setStatus(HttpStatus.OK.value());
 		return HttpStatus.OK.getReasonPhrase();
+	}
+
+	@RequestMapping(path = "/beacon/{id}/audio.mp3", method = RequestMethod.GET)
+	public HttpEntity<byte[]> getBeaconAudio(HttpServletResponse resp, @PathVariable Integer id) throws IOException {
+		File file = null;
+		try {
+			file = beaconService.findBeaconAudio(id);
+		} catch (AbstractMeGuiaException e) {
+			// beacon não encontrado
+		}
+
+		if (file == null) {
+			resp.setStatus(HttpStatus.NOT_FOUND.value());
+			return null;
+		}
+		
+		byte[] bytes = FileCopyUtils.copyToByteArray(file);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("audio", "mpeg"));
+		headers.setContentLength(bytes.length);
+		
+		return new HttpEntity<byte[]>(bytes, headers);
 	}
 }
