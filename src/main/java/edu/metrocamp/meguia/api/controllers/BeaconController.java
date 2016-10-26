@@ -110,4 +110,13 @@ public class BeaconController {
 		
 		return new HttpEntity<byte[]>(bytes, headers);
 	}
+	
+	@RequestMapping(path = "/beacon/{id}/audio", method = RequestMethod.DELETE)
+	public String deleteBeaconAudio(HttpServletResponse resp, @PathVariable Integer id) throws AbstractMeGuiaException  {
+		
+		beaconService.deleteBeaconAudio(id);
+
+		resp.setStatus(HttpStatus.OK.value());
+		return HttpStatus.OK.getReasonPhrase();
+	}
 }

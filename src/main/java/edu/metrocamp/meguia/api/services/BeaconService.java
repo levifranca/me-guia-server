@@ -183,13 +183,29 @@ public class BeaconService {
 
 	public File findBeaconAudio(Integer id) throws AbstractMeGuiaException {
 		Beacon b = findBeacon(id);
-		
+		return findBeaconAudio(b);
+	}
+
+	private File findBeaconAudio(Beacon b) throws MensagemSonoraNaoEncontradaException {
 		if (StringUtils.isBlank(b.getMensagemSom())) {
-			throw new MensagemSonoraNaoEncontradaException(String.format("Mensagem sonora para o beacon de id = %d não foi encontrada.", id));
+			throw new MensagemSonoraNaoEncontradaException(String.format("Mensagem sonora para o beacon de id = %d não foi encontrada.", b.getId()));
 		}
 		
 		String fileRelativePath = StringUtils.removeStart(b.getMensagemSom(), "/");
 		return new File(fileRelativePath);
+	}
+
+	public void deleteBeaconAudio(Integer id) throws AbstractMeGuiaException {
+		Beacon b = findBeacon(id);
+		
+		File audioFile = findBeaconAudio(b);
+		if (audioFile.exists()) {
+			audioFile.delete();
+		}
+		
+		b.setMensagemSom(null);
+		
+		repository.saveAndFlush(b);
 	}
 
 }
