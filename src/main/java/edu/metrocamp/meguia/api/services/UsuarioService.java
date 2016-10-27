@@ -140,5 +140,9 @@ public class UsuarioService {
 		u.setModificadoEm(new Date());
 		u.setModificadoPor(admin);
 		repository.saveAndFlush(u);
-	};
+	}
+	
+	public Usuario checkUsuario(String login, String senha) {
+		return repository.checkUsuario(login, senha);
+	}
 }
