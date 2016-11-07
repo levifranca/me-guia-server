@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import edu.metrocamp.meguia.api.services.UsuarioService;
@@ -46,6 +47,7 @@ public class MeGuiaSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().anyRequest().hasAuthority(USER_ROLE)
 				.and()
+				.addFilterBefore(new MeGuiaCorsFilter(), ChannelProcessingFilter.class)
 				.addFilterBefore(new MeGuiaAuthFilter(usuarioService), UsernamePasswordAuthenticationFilter.class)
 				.csrf().disable();
 	}
