@@ -130,7 +130,7 @@ public class BeaconService {
 
 
 		if (StringUtils.isNotBlank(reqDTO.getMensagem())) {
-
+			b.setMensagemTexto(reqDTO.getMensagem());
 		}
 
 		if (reqDTO.getVibrar() != null) {
@@ -149,8 +149,11 @@ public class BeaconService {
 			b.setRegiao(r);
 		}
 
-		b.setMensagemTexto(reqDTO.getMensagem());
-		b.setDescricao(reqDTO.getDescricao());
+		
+		
+		if (StringUtils.isNotBlank(reqDTO.getDescricao())) {
+			b.setDescricao(reqDTO.getDescricao());
+		}
 
 		Date now = new Date();
 		b.setModificadoEm(now);
@@ -163,20 +166,26 @@ public class BeaconService {
 		
 		Beacon b = findBeacon(id);
 		
-		File file = getBeaconAudioFile(id);
-		multipartFile.transferTo(file);
+		String filename = multipartFile.getOriginalFilename();
+		String extension = "wav";
+		if (filename.endsWith(".mp3")) {
+			extension = "mp3";
+		}
 		
-		b.setMensagemSom("/beacons-audio/" + id + ".mp3");
+		File file = getBeaconAudioFile(id, extension);
+		multipartFile.transferTo(file);
+
+		b.setMensagemSom("/beacons-audio/" + id + "." + extension);
 		
 		repository.saveAndFlush(b);
 	}
 
-	private File getBeaconAudioFile(Integer id) throws IOException {
+	private File getBeaconAudioFile(Integer id, String extension) throws IOException {
 		File folder = new File("beacons-audio");
 		if (!folder.exists()) {
 			folder.mkdir();
 		}
-		File file = new File(folder, "/" + id + ".mp3");
+		File file = new File(folder, "/" + id + "." + extension);
 		file.createNewFile();
 		return file;
 	}

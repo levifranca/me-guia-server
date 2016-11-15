@@ -27,7 +27,7 @@ public class MeGuiaSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	public static final String ANONYMOUS_ROLE = "ANONYMOUS_ROLE";
 	public static final String USER_ROLE = "USER_ROLE";
-	public final static Set<String> ANONYMOUS_GET_URLS = new HashSet<>(Arrays.asList("/api/beacon_info", "/api/beacon/*/audio.mp3"));
+	public final static Set<String> ANONYMOUS_GET_URLS = new HashSet<>(Arrays.asList("/api/beacon_info", "/api/beacon/*/audio.mp3", "/api/beacon/*/audio.wav"));
 
 	@Autowired
 	private UsuarioService usuarioService;

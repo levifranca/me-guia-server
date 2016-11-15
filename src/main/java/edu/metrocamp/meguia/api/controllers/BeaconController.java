@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,8 +89,8 @@ public class BeaconController {
 		return HttpStatus.OK.getReasonPhrase();
 	}
 
-	@RequestMapping(path = "/beacon/{id}/audio.mp3", method = RequestMethod.GET)
-	public HttpEntity<byte[]> getBeaconAudio(HttpServletResponse resp, @PathVariable Integer id) throws IOException {
+	@RequestMapping(path = {"/beacon/{id}/audio.mp3", "/beacon/{id}/audio.wav"} , method = RequestMethod.GET)
+	public HttpEntity<byte[]> getBeaconAudio(HttpServletRequest req, HttpServletResponse resp, @PathVariable Integer id) throws IOException {
 		File file = null;
 		try {
 			file = beaconService.findBeaconAudio(id);
@@ -105,7 +106,12 @@ public class BeaconController {
 		byte[] bytes = FileCopyUtils.copyToByteArray(file);
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(new MediaType("audio", "mpeg"));
+		String servletPath = req.getServletPath();
+		if (servletPath.endsWith(".mp3")) {
+			headers.setContentType(new MediaType("audio", "mpeg"));
+		} else {
+			headers.setContentType(new MediaType("audio", "x-wav"));
+		}
 		headers.setContentLength(bytes.length);
 		
 		return new HttpEntity<byte[]>(bytes, headers);
