@@ -117,6 +117,8 @@ CREATE TABLE `Usuario` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+INSERT INTO `ME_GUIA`.`Usuario` (`ID`, `Ativo`, `Nome`, `Login`, `Senha`, `Tipo`, `Criado_por`, `Criado_em`, `Modificado_por`, `Modificado_em`) VALUES (1, 1, 'Admin', 'admin', 'cdb996f94aa8ec758b7e107b8a5d843c251d2461d78a401a06f4b8d207817890', 0, 1, '2016-10-01 00:00:00', 1, '2016-10-01 00:00:00');
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
