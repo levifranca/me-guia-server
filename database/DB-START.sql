@@ -45,7 +45,7 @@ CREATE TABLE `Beacon` (
   CONSTRAINT `fk_Beacons_1` FOREIGN KEY (`Regiao`) REFERENCES `Regiao` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Beacons_2` FOREIGN KEY (`Criado_por`) REFERENCES `Usuario` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Beacons_3` FOREIGN KEY (`Modificado_por`) REFERENCES `Usuario` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `Regiao` (
   KEY `fk_Regioes_2_idx` (`Modificado_por`),
   CONSTRAINT `fk_Regioes_1` FOREIGN KEY (`Criado_por`) REFERENCES `Usuario` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Regioes_2` FOREIGN KEY (`Modificado_por`) REFERENCES `Usuario` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +113,7 @@ CREATE TABLE `Usuario` (
   KEY `fk_Usuarios_2_idx` (`Criado_por`),
   KEY `fk_Usuarios_3_idx` (`Modificado_por`),
   CONSTRAINT `fk_Usuario_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Usuario` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
