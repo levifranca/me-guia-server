@@ -100,7 +100,7 @@ public class BeaconService {
 		b.setModificadoPor(cadastrador);
 		b.setNome(reqDTO.getNome());
 		b.setRegiao(r);
-		b.setVibrar(reqDTO.getVibrar());
+		b.setVibrar(reqDTO.getVibrar() == null ? Boolean.FALSE : reqDTO.getVibrar());
 
 		repository.saveAndFlush(b);
 
